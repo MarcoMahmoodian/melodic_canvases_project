@@ -1,4 +1,5 @@
-# Melodic Canvases Reimagining Art as Harmonious Symphony
+# Melodic Canvases:
+## (Reimagining Art as Harmonious Symphony)
 This project utilizes deep learning to transform art images into corresponding classical music tracks, providing a unique and harmonious fusion of visual and auditory artistic expressions.
 
 # Data analysis
