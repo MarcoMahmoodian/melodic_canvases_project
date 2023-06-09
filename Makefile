@@ -26,7 +26,7 @@ clean:
 	@rm -fr dummy_project.egg-info
 
 install:
-	@pip install . -U
+	@pip install -e .
 
 all: clean install test black check_code
 
