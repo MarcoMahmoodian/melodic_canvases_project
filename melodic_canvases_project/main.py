@@ -60,6 +60,7 @@ def train(learning_rate= , batch_size = , ):
 
 
 def evaluate():
+    pass
     """
     Evaluate the performance of the latest production model on processed data
     Return MAE as a float
@@ -77,3 +78,11 @@ def pred():
     #Make a prediction using the latest trained model
     #your code here
     pass
+
+
+
+if __name__ == '__main__':
+    preprocess(min_date='2009-01-01', max_date='2015-01-01')
+    train(min_date='2009-01-01', max_date='2015-01-01')
+    evaluate(min_date='2009-01-01', max_date='2015-01-01')
+    pred()
