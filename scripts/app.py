@@ -90,7 +90,7 @@ if masel == 'Methodology':
 if masel == 'Artist prediction':
     
     if st.session_state['tab_nr'] == 1:
-        st.info("Art gallery: please choose a masterpiece in the gallery for the prediction")
+        st.info("Art gallery: please choose a masterpiece for the prediction")
         
         with st.container():
             if st.button('predict the artist'):
@@ -104,19 +104,22 @@ if masel == 'Artist prediction':
         with col02:
             lblcontainer = st.container()
             imgplaceholder = st.image
-        
-        with st.expander("Sselect a picture from the url", expanded=False):
-            st.info("please paste the url in the field below")
-            img1 = st.text_input('Artwork url')
-            st.write('the selected masterpiece url is', img1)
-            if (img1 is not None) and  (img1 != ""):
-                st.info(img1)
-                st.session_state['img'] = img1
-                st.session_state['imgart'] = 1
-                with lblcontainer:
-                    st.write(f"url from internet{img1}")
-                with imgcontainer:
-                    imgplaceholder(st.session_state['img'])
+            
+        radio_choice = st.radio(label='', options=["Url", "Gallery"], horizontal=True)
+        if radio_choice == 'Url':
+            st.session_state['imgart'] = 1
+            with st.expander("Sselect a picture from the url", expanded=True):
+                st.info("please paste the url in the field below")
+                img1 = st.text_input('Artwork url')
+                st.write('the selected masterpiece url is', img1)
+                if (img1 is not None) and  (img1 != ""):
+                    st.info(img1)
+                    st.session_state['img'] = img1
+                    st.session_state['imgart'] = 1
+                    with lblcontainer:
+                        st.write(f"url from internet{img1}")
+                    with imgcontainer:
+                        imgplaceholder(st.session_state['img'])
             
         #with st.expander("Sselect a picture from the hard drive", expanded=False):
             # st.info("firstselect picture from your hard drive")
@@ -130,27 +133,28 @@ if masel == 'Artist prediction':
             #      st.write(st.session_state['img'])
             # with imgcontainer:
             #      st.image(st.session_state['img'], width=200) 
-                 
-        with st.expander("Select a picture to predict from the gallery", expanded=True):
-            images = []
-            for image in os.listdir("./melodic_canvases_project/data/images"):
-                if image.endswith(".jpg"):
-                    images.append(f"./melodic_canvases_project/data/images/{image}")
-                else:
-                    continue
-            img3 = image_select(
-            label="Select a picture",
-            images = images,
-            )
-            if st.session_state['imgart'] != 1:
-                if (img3 is not None) and  (img3 != ""):
-                    st.session_state['img'] = img3
-                    st.session_state['imgart'] = 3
-                    #st.write(st.session_state['img'])
-                    with lblcontainer:
-                        st.write(st.session_state['img'].split('/')[-1].replace('_', ' '))
-                    with imgcontainer:
-                        imgplaceholder(st.session_state['img'], width=200)     
+        if radio_choice == 'Gallery':
+            st.session_state['imgart'] = 3         
+            with st.expander("Select a picture to predict from the gallery", expanded=True):
+                images = []
+                for image in os.listdir("./melodic_canvases_project/data/images"):
+                    if image.endswith(".jpg"):
+                        images.append(f"./melodic_canvases_project/data/images/{image}")
+                    else:
+                        continue
+                img3 = image_select(
+                label="Select a picture",
+                images = images,
+                )
+                if st.session_state['imgart'] != 1:
+                    if (img3 is not None) and  (img3 != ""):
+                        st.session_state['img'] = img3
+                        st.session_state['imgart'] = 3
+                        #st.write(st.session_state['img'])
+                        with lblcontainer:
+                            st.write(st.session_state['img'].split('/')[-1].replace('_', ' '))
+                        with imgcontainer:
+                            imgplaceholder(st.session_state['img'], width=200)     
 
     if st.session_state['tab_nr'] == 2:
         st.info("Prediction")
