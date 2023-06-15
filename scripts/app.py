@@ -59,6 +59,16 @@ st.sidebar.markdown(
     </style>
     """, unsafe_allow_html=True
 )
+st.sidebar.markdown(
+    """
+    <style>
+        section > div > div > [data-testid=stVerticalBlock] > div > [class=stAlert] > div > div > div> div > [data-testid=stMarkdownContainer] > p {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center !important;}
+    </style>
+    """, unsafe_allow_html=True
+)
 with st.sidebar:
     st.sidebar.image("https://lewagon.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ffe03270b-e175-406a-a223-7d362fb51bd4%2Fnest.png?table=block&id=5590833d-acb5-43ac-ba73-353ac22399d7&spaceId=2b6dea13-478f-4f00-aff1-afd11ed5a03f&width=250&userId=&cache=v2", use_column_width=False)
     st.sidebar.title("Artist prediction")
@@ -83,6 +93,7 @@ if masel == 'Home':
         st.write("Creation of art is among the highest form of expression of human mind and imagination. The ability of communicating imagination sets us apart from all other beings. Painting, being an expression of visual language, have attracted and connected the brilliant human minds since the dawn of civilization - from early drawings on walls of caves to paper or glass paintings of modern times, from charcoals in prehistoric times to water, oil, or pastel colors of today. We have travelled a long way, and have finally reached a stage where not only humans but computers, another brilliant creation of human minds, is creating paintings.")
         st.write("For an enthusiast of arts, identifying the paintings of her favorite artists is not that difficult, given years of careful practice and research. Given a painting, she can easily identify if it was painted by a painter she is passionate about. But can a computer do the same? Can a machine without emotions identify who the genius is behind a mindblowing painting?")
         st.write("In this part of the project, let us try to explore that direction, using techniques of deep learning.")
+        st.write("Our model has been trained on the masterpieces by 11 famous artists: Vincent_van_Gogh, Edgar_Degas, Pablo_Picasso, Pierre-Auguste_Renoir, Albrecht_Dürer, Paul_Gauguin, Francisco_Goya, Rembrandt, Alfred_Sisley, Titian, Marc_Chagall")
   
 if masel == 'Methodology':
     tab31, tab32, tab33 = st.tabs(["Convolutional neural network", "Transfer learning", "Variational Autoencoder"])
@@ -112,7 +123,7 @@ if masel == 'Artist prediction':
             lblcontainer = st.container()
             imgplaceholder = st.image
             
-        radio_choice = st.radio(label='', options=["Url", "Gallery"], horizontal=True)
+        radio_choice = st.radio(label='', options=["Url", "Gallery"], horizontal=True, index=1)
         if radio_choice == 'Url':
             st.session_state['imgart'] = 1
             with st.expander("Sselect a picture from the url", expanded=True):
@@ -184,25 +195,39 @@ if masel == 'Artist prediction':
             apiautobiography = st.container()
         
         with st.spinner('Prediction in progress - wait for it...'):
-            # model =  load_da_model()
-            artist, probability = artpredictor(model, st.session_state['img'])
-            # st.info(f"model-predicted artist: {artist},  prediction probability:{probability}")
-            # apis info
-            abiography, aimage_url = get_artist_info(artist)
-            aquote = get_random_quote_by_person(artist)
-            with predictcontainer:
-                st.info("prediction results:")
-                st.success(f"Predicted Artist: {artist}  \nPrediction Probability: {probability}")
-                st.info(f"original label: {st.session_state['img'].split('/')[-1].replace('_', ' ')}")
-            with apiautobiography:
-                st.info(artist)
-                col21, col22 = st.columns(spec= [0.2, 0.8], gap="small")
-                with col21:
-                    st.image(aimage_url, width=100)
-                with col22:
-                    st.write(aquote)
-                st.info(abiography)
-                   
+            try:
+                # model =  load_da_model()
+                artist, probability = artpredictor(model, st.session_state['img'])
+                # st.info(f"model-predicted artist: {artist},  prediction probability:{probability}")
+                # apis info
+                abiography, aimage_url = get_artist_info(artist)
+                aquote = get_random_quote_by_person(artist)
+                with predictcontainer:
+                    st.info("prediction results:")
+                    st.success(f"Predicted Artist: {artist}  \nPrediction Probability: {probability}")
+                    st.info(f"original label: {st.session_state['img'].split('/')[-1].replace('_', ' ')}")
+                with apiautobiography:
+                    st.info(artist)
+                    col21, col22 = st.columns(spec= [0.2, 0.8], gap="small")
+                    with col21:
+                        st.image(aimage_url, width=100)
+                    with col22:
+                        st.write(aquote)
+                    st.info(abiography)
+            except Exception as e:
+                with predictcontainer:
+                    st.info("prediction results:")
+                    st.error(f"Error while processing the image. Please check your image and try again")
+                    st.info("")
+                with apiautobiography:
+                    st.info("")
+                    col21, col22 = st.columns(spec= [0.2, 0.8], gap="small")
+                    # with col21:
+                    # st.image("")
+                    with col22:
+                        st.write("")
+                    st.info("")
+                       
 
 if masel == 'References':
    with st.container():
