@@ -33,7 +33,7 @@ st.sidebar.markdown(
             text-align: center;
             display: block;
             margin-left: auto;
-            --margin-right: auto;
+            margin-right: auto;
             width: 80%;
         }
         [data-testid=stSidebar] [data-testid=stMarkdownContainer] > div > h1{
@@ -63,14 +63,24 @@ st.sidebar.markdown(
     """
     <style>
         section > div > div > [data-testid=stVerticalBlock] > div > [class=stAlert] > div > div > div> div > [data-testid=stMarkdownContainer] > p {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             text-align: center !important;}
     </style>
     """, unsafe_allow_html=True
 )
+st.sidebar.markdown(
+    """
+    <style>
+            [class=stAlert] >  [role=alert] > div > div > div > [data-testid=stMarkdownContainer] > p {
+            font-size: 18px;
+            font-weight: bold;
+            }
+    </style>
+    """, unsafe_allow_html=True
+)
 with st.sidebar:
-    st.sidebar.image("https://lewagon.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ffe03270b-e175-406a-a223-7d362fb51bd4%2Fnest.png?table=block&id=5590833d-acb5-43ac-ba73-353ac22399d7&spaceId=2b6dea13-478f-4f00-aff1-afd11ed5a03f&width=250&userId=&cache=v2", use_column_width=False)
+    st.sidebar.image("https://d26jy9fbi4q9wx.cloudfront.net/assets/logo-ae2beeecce25d711f577b08deb9adfc6c02b673ed106b8d6c3da0f1721d9da33.svg", use_column_width=False)
     st.sidebar.title("Artist prediction")
     selected = option_menu("Main Menu", ["Home", 'Artist prediction', "Methodology", "Art generation", "Music generation", "References"], 
         icons=['house', 'broadcast'], menu_icon="cast", default_index=1)
@@ -170,7 +180,7 @@ if masel == 'Artist prediction':
                         st.session_state['imgart'] = 3
                         #st.write(st.session_state['img'])
                         with lblcontainer:
-                            st.write(st.session_state['img'].split('/')[-1].replace('_', ' '))
+                            st.write(st.session_state['img'].split('/')[-1].rsplit('_', 1)[0].replace('_', ' '))
                         with imgcontainer:
                             imgplaceholder(st.session_state['img'], width=200)     
 
@@ -205,7 +215,10 @@ if masel == 'Artist prediction':
                 with predictcontainer:
                     st.info("prediction results:")
                     st.success(f"Predicted Artist: {artist}  \nPrediction Probability: {probability}")
-                    st.info(f"original label: {st.session_state['img'].split('/')[-1].replace('_', ' ')}")
+                    if st.session_state['imgart'] != 1:
+                        st.info(f"Actual Artist: {st.session_state['img'].split('/')[-1].rsplit('_', 1)[0].replace('_', ' ')}")
+                    # else:
+                        # st.info(f"Url: {st.session_state['img']}")
                 with apiautobiography:
                     st.info(artist)
                     col21, col22 = st.columns(spec= [0.2, 0.8], gap="small")
