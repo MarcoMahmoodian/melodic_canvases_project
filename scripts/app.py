@@ -13,7 +13,7 @@ import extra_streamlit_components as stx
 
 from  prediction import artpredictor, load_da_model
 from apis import *
-
+    
 #session vars
 if 'tab_nr' not in st.session_state:
     st.session_state['tab_nr'] = 1
@@ -49,6 +49,13 @@ st.sidebar.markdown(
     """
     <style>
         [data-testid=column] {background-color: rgba(232,242,252,255);}
+    </style>
+    """, unsafe_allow_html=True
+)
+st.sidebar.markdown(
+    """
+    <style>
+        section > div > div > [data-testid=stVerticalBlock] {background-color: #f1f5f9; border: 1px solid rgba(232,242,252,255);}
     </style>
     """, unsafe_allow_html=True
 )

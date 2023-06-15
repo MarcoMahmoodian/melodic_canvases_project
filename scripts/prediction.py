@@ -10,7 +10,7 @@ from keras.models import load_model
 from keras.utils.data_utils import get_file
 
 # Load the saved model
-@st.cache_resource(ttl=7200)
+@st.cache_resource(ttl=None)
 def load_da_model():
     #model = keras.models.load_model('./models/final_model_cnn_11.h5')
     # Load the locally saved model
