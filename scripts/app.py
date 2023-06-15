@@ -74,7 +74,7 @@ alert("Hola mundo");
 # Wrapt the javascript as html code
 my_html = f"<script>{my_js}</script>"
 
-st.write(masel)
+st.success(masel)
 
 if masel == 'Home':
    tab10, tab11 = st.tabs(["Artist prediction", "About"])
@@ -204,9 +204,13 @@ if masel == 'Artist prediction':
                 st.info(abiography)
                    
 
-if masel == 'references':
+if masel == 'References':
    with st.container():
-        st.write("MusicNet dataset: https://lewagon-alumni.slack.com/archives/C05AB0ANML7/p1686750933899749")
+        st.write("1. MusicNet dataset:  https://lewagon-alumni.slack.com/archives/C05AB0ANML7/p1686750933899749")
+        st.write("2. Art Images dataset: https://www.kaggle.com/datasets/thedownhill/art-images-drawings-painting-sculpture-engraving")
+        st.write("3. https://www.kaggle.com/code/supratimhaldar/deepartist-identify-artist-from-art")
+        st.write("4. https://www.kaggle.com/code/speedwagon/variational-autoencoder-dogs-generation")
+        st.write("5. https://www.kaggle.com/code/basu369victor/generate-music-with-variational-autoencoder")
 
 if masel == 'Art generation':
    with st.container():
@@ -215,14 +219,14 @@ if masel == 'Art generation':
 if masel == 'Music generation':
    with st.container():
         st.write("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")   
-        tab_options = ["Tab 1", "Tab 2"]
-        selected_tab = st.radio("Select a tab", tab_options)
+        # tab_options = ["Tab 1", "Tab 2"]
+        # selected_tab = st.radio("Select a tab", tab_options)
 
-        if selected_tab == "Tab 1":
-            st.markdown("Tab 1 content")
-            # Add your Tab 1 content here
-        elif selected_tab == "Tab 2":
-            st.markdown("Tab 2 content")
+        # if selected_tab == "Tab 1":
+        #     st.markdown("Tab 1 content")
+        #     # Add your Tab 1 content here
+        # elif selected_tab == "Tab 2":
+        #     st.markdown("Tab 2 content")
             
 #Execute your app
 #st.title("Javascript example")
