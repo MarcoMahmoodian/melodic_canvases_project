@@ -25,6 +25,22 @@ if 'imgart' not in st.session_state:
 # with st.spinner('Loading model in progress - wait for it...'):
 model =  load_da_model()
 
+#background image by The Untouchables, Pen and Ink drawing by Marco Marchi, colorized with style2paints in Runway ML -- for learning purpose @Le Wagon Bootcamp only
+def add_bg_from_url():
+    st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://images.squarespace-cdn.com/content/v1/59413d96e6f2e1c6837c7ecd/1561899371206-9LVRDFOQP0N098JXFGUU/style2paints+-+June+30th+2019+at+8.34.13+AM.jpg");
+             background-attachment: fixed;
+             background-size: contain;
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+add_bg_from_url()
 #sidebar
 st.sidebar.markdown(
     """
@@ -45,45 +61,80 @@ st.sidebar.markdown(
     </style>
     """, unsafe_allow_html=True
 )
-st.sidebar.markdown(
+
+st.markdown(
     """
     <style>
         [data-testid=column] {background-color: rgba(232,242,252,255);}
     </style>
     """, unsafe_allow_html=True
 )
-st.sidebar.markdown(
+st.markdown(
     """
     <style>
-        section > div > div > [data-testid=stVerticalBlock] {background-color: #f1f5f9; border: 1px solid rgba(232,242,252,255);}
+        section > div > div > [data-testid=stVerticalBlock] {background-color: #f1f5f9; gap: 0.2rem; border: 3px solid #318759; border-radius: 3px;
+        outline: 70px solid rgba(241, 245, 249, 0.6);}
     </style>
     """, unsafe_allow_html=True
 )
-st.sidebar.markdown(
+st.markdown(
     """
     <style>
-        section > div > div > [data-testid=stVerticalBlock] > div > [class=stAlert] > div > div > div> div > [data-testid=stMarkdownContainer] > p {
+        [data-testid=stMarkdownContainer] > p {
             font-size: 18px;
+            font-weight: normal;
+            padding: 5px;
+    </style>
+    """, unsafe_allow_html=True
+)
+st.markdown(
+    """
+    <style>
+        section > div > div > [data-testid=stVerticalBlock] > div > [class=stAlert] > .st-bd > div > div> div > [data-testid=stMarkdownContainer] > p {
+            font-size: 22px;
             font-weight: bold;
             text-align: center !important;}
     </style>
     """, unsafe_allow_html=True
 )
-st.sidebar.markdown(
+st.markdown(
     """
     <style>
-            [class=stAlert] >  [role=alert] > div > div > div > [data-testid=stMarkdownContainer] > p {
-            font-size: 18px;
+            [class=stAlert] > .st-bd > div > div > div > [data-testid=stMarkdownContainer] > p {
+            font-size: 20px;
             font-weight: bold;
             }
     </style>
     """, unsafe_allow_html=True
 )
+st.markdown(
+    """
+    <style>
+            [data-testid=stHorizontalBlock] > [data-testid=column]  > div > [data-testid=stVerticalBlock] > div > .stMarkdown > [data-testid=stMarkdownContainer] > p {
+            font-style: italic;
+            text-align: center;
+            }
+    </style>
+    """, unsafe_allow_html=True
+)
+st.markdown(
+    """
+    <style>
+            [data-baseweb=base-input]  > input {
+            background-color : #d1cfcf;
+            }
+            [data-baseweb=base-input] > input:hover  {
+            background-color : rgba(232,242,252,255);
+            }
+    </style>
+    """, unsafe_allow_html=True
+)
+
 with st.sidebar:
     st.sidebar.image("https://d26jy9fbi4q9wx.cloudfront.net/assets/logo-ae2beeecce25d711f577b08deb9adfc6c02b673ed106b8d6c3da0f1721d9da33.svg", use_column_width=False)
     st.sidebar.title("Artist prediction")
     selected = option_menu("Main Menu", ["Home", 'Artist prediction', "Methodology", "Art generation", "Music generation", "References"],
-        icons=['house', 'broadcast'], menu_icon="cast", default_index=1)
+        icons=['house', 'broadcast', 'card-list', 'file-earmark-ppt', 'music-note', 'link'], menu_icon="cast", default_index=1)
     masel = selected
 
 # Define your javascript
@@ -97,13 +148,40 @@ my_html = f"<script>{my_js}</script>"
 st.success(masel)
 
 if masel == 'Home':
-   tab10, tab11 = st.tabs(["Artist prediction", "About"])
+   tab10, tab11, tab12 = st.tabs(["Artist prediction", "Artists list", "About"])
    with st.container():
     with tab10:
         st.write("Creation of art is among the highest form of expression of human mind and imagination. The ability of communicating imagination sets us apart from all other beings. Painting, being an expression of visual language, have attracted and connected the brilliant human minds since the dawn of civilization - from early drawings on walls of caves to paper or glass paintings of modern times, from charcoals in prehistoric times to water, oil, or pastel colors of today. We have travelled a long way, and have finally reached a stage where not only humans but computers, another brilliant creation of human minds, is creating paintings.")
         st.write("For an enthusiast of arts, identifying the paintings of her favorite artists is not that difficult, given years of careful practice and research. Given a painting, she can easily identify if it was painted by a painter she is passionate about. But can a computer do the same? Can a machine without emotions identify who the genius is behind a mindblowing painting?")
         st.write("In this part of the project, let us try to explore that direction, using techniques of deep learning.")
-        st.write("Our model has been trained on the masterpieces by 11 famous artists: Vincent_van_Gogh, Edgar_Degas, Pablo_Picasso, Pierre-Auguste_Renoir, Albrecht_Dürer, Paul_Gauguin, Francisco_Goya, Rembrandt, Alfred_Sisley, Titian, Marc_Chagall")
+    with tab11:
+        # st.write(" Vincent_van_Gogh, Edgar_Degas, Pablo_Picasso, Pierre-Auguste_Renoir, Albrecht_Dürer, Paul_Gauguin, Francisco_Goya, Rembrandt, Alfred_Sisley, Titian, Marc_Chagall")
+        st.markdown(
+            """
+            Our model has been trained on the masterpieces by 11 famous artists:
+            - Vincent van Gogh
+            - Edgar Degas
+            - Pablo Picasso
+            - Pierre Auguste Renoir
+            - Albrecht Dürer
+            - Paul Gauguin
+            - Francisco Goya
+            - Rembrandt
+            - Alfred Sisley
+            - Titian
+            - Marc Chagall
+            """
+            )
+    with tab12:
+        st.markdown(
+            """
+            Our team:
+            - Marco Mahmoodian - Project manager and team leader
+            - Masoud Zardasht - Project collaborator
+            - Alexander Belski - Project collaborator
+            """
+            )
+
 
 if masel == 'Methodology':
     tab31, tab32, tab33 = st.tabs(["Convolutional neural network", "Transfer learning", "Variational Autoencoder"])
@@ -136,18 +214,27 @@ if masel == 'Artist prediction':
         radio_choice = st.radio(label='', options=["Url", "Gallery"], horizontal=True, index=1)
         if radio_choice == 'Url':
             st.session_state['imgart'] = 1
-            with st.expander("Sselect a picture from the url", expanded=True):
+            with st.expander("Select a picture from the url", expanded=True):
                 st.info("please paste the url in the field below")
                 img1 = st.text_input('Artwork url')
                 st.write('the selected masterpiece url is', img1)
                 if (img1 is not None) and  (img1 != ""):
-                    st.info(img1)
-                    st.session_state['img'] = img1
-                    st.session_state['imgart'] = 1
-                    with lblcontainer:
-                        st.write(f"url from internet{img1}")
-                    with imgcontainer:
-                        imgplaceholder(st.session_state['img'])
+                    try:
+                        st.info(img1)
+                        st.session_state['img'] = img1
+                        st.session_state['imgart'] = 1
+                        with lblcontainer:
+                            st.write(f"url from internet: {img1}")
+                        with imgcontainer:
+                            imgplaceholder(st.session_state['img'])
+                    except Exception as e:
+                        st.error("Error while processing the url. Url unvalid.")
+                        st.session_state['img'] = img1
+                        st.session_state['imgart'] = 1
+                        # with lblcontainer:
+                            # st.write(f"url from internet: {img1}")
+                        # with imgcontainer:
+                            # imgplaceholder("")
 
         #with st.expander("Sselect a picture from the hard drive", expanded=False):
             # st.info("firstselect picture from your hard drive")
@@ -195,7 +282,10 @@ if masel == 'Artist prediction':
         with col1:
             with  st.container():
                 st.info("selected picture")
-                st.image(st.session_state['img'], width=300)
+                try:
+                    st.image(st.session_state['img'], width=300)
+                except Exception as e:
+                    st.error("error while opening the picture. Picture unvalid.")
 
         # prediction
         with col2:
@@ -249,6 +339,7 @@ if masel == 'References':
         st.write("3. https://www.kaggle.com/code/supratimhaldar/deepartist-identify-artist-from-art")
         st.write("4. https://www.kaggle.com/code/speedwagon/variational-autoencoder-dogs-generation")
         st.write("5. https://www.kaggle.com/code/basu369victor/generate-music-with-variational-autoencoder")
+        st.write("6.Background image: https://www.artnome.com/news/2019/6/30/machine-learning-for-art-deep-kitsch-or-creative-augmentation - for learning purpose @bootcamp only  \nThe Untouchables, Pen and Ink drawing by Marco Marchi, colorized with style2paints in Runway ML")
 
 if masel == 'Art generation':
    with st.container():
