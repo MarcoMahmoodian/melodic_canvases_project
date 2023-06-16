@@ -31,7 +31,7 @@ def add_bg_from_url():
          f"""
          <style>
          .stApp {{
-             background-image: url("https://images.squarespace-cdn.com/content/v1/59413d96e6f2e1c6837c7ecd/1561899371206-9LVRDFOQP0N098JXFGUU/style2paints+-+June+30th+2019+at+8.34.13+AM.jpg??format=750w");
+             background-image: url("https://images.squarespace-cdn.com/content/v1/59413d96e6f2e1c6837c7ecd/1561899371206-9LVRDFOQP0N098JXFGUU/style2paints+-+June+30th+2019+at+8.34.13+AM.jpg");
              background-attachment: fixed;
              background-size: contain;
          }}
